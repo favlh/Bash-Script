@@ -1,2 +1,2 @@
 # Bash-Script
-Regular Use Bash script command for linux
+Regular use or daily bash script command for linux
