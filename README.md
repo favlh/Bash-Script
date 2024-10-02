@@ -1,2 +1,2 @@
 # Bash-Script
-Bash script command for linux
+Regular Use Bash script command for linux
