@@ -1,3 +1,5 @@
 #!/bin/sh
-echo "Hello World"
+name='firja'
+
+echo "Hello $name"
 date 
