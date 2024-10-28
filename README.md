@@ -1,1 +1,1 @@
-A bunch of bash scripts for Linux (Mostly for debian based)
+A bunch of bash scripts for Linux (Mostly for debian or ubuntu based)
