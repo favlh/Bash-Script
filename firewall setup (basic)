@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Basic Firewall Setup Script
+
+# Function to detect package manager and install ufw
+install_ufw() {
+    if command -v apt &> /dev/null; then
+        echo "Using apt to install UFW..."
+        sudo apt update && sudo apt install -y ufw
+    elif command -v pacman &> /dev/null; then
+        echo "Using pacman to install UFW..."
+        sudo pacman -Syu --noconfirm ufw
+    elif command -v yum &> /dev/null; then
+        echo "Using yum to install UFW..."
+        sudo yum install -y ufw
+    else
+        echo "No supported package manager found. Please install UFW manually."
+        exit 1
+    fi
+}
+
+# Ensure UFW is installed
+if ! command -v ufw &> /dev/null; then
+    install_ufw
+fi
+
+# Reset UFW rules to default
+echo "Resetting UFW to default settings..."
+sudo ufw reset
+
+# Allow SSH, HTTP, and HTTPS
+echo "Allowing SSH (port 22), HTTP (port 80), and HTTPS (port 443)..."
+sudo ufw allow 22/tcp    # SSH
+sudo ufw allow 80/tcp    # HTTP
+sudo ufw allow 443/tcp   # HTTPS
+
+# Enable UFW
+echo "Enabling UFW and denying all other incoming traffic..."
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw enable
+
+# Display UFW status
+echo "Firewall setup complete. Current UFW status:"
+sudo ufw status verbose
+
+# Run the script itself if not already executed directly
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+    chmod +x "${BASH_SOURCE[0]}"
+    exec "${BASH_SOURCE[0]}"
+fi
+
+# Add commands to make the script executable and run it
+chmod +x "$0"
+exec "$0"
