@@ -1,5 +1,6 @@
 #!/bin/bash 
 
+# Examples
 echo "This script is for examples using echo in bashscript"
 
 echo "Linux is awesome, is'nt?"
