@@ -5,8 +5,8 @@ sudo apt update
 ## Upgrade Package 
 sudo apt upgrade -y
 
-## Jika untuk full-upgrade package yang ada di linux anda
+## Full upgrade system
 #sudo apt full-upgrade -y
 
-## Membersihkan Cache
+## Cleaning apt cache
 sudo apt clean
