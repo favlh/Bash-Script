@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-# Examples
+# Examples of bashcript
 echo "This script is for examples using echo in bashscript"
 
 echo "Linux is awesome, is'nt?"
