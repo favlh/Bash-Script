@@ -1,5 +1,5 @@
 #!/bin/sh
-name='your_name'
+name=$USER
 
 echo "Hello $name"
 date 
