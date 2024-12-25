@@ -4,9 +4,9 @@
 
 # Function to detect package manager and install ufw
 install_ufw() {
-    if command -v apt &> /dev/null; then
-        echo "Using apt to install UFW..."
-        sudo apt update && sudo apt install -y ufw
+    if command -v apt-get &> /dev/null; then
+        echo "Using apt-get to install UFW..."
+        sudo apt-get update && sudo apt-get install -y ufw
     elif command -v dnf &> /dev/null; then
         echo "Using dnf to install UFW..."
         sudo dnf install -y ufw
@@ -19,6 +19,9 @@ install_ufw() {
     elif command -v zypper &> /dev/null; then
         echo "Using zypper to install UFW..."
         sudo zypper install -y ufw
+    elif command -v emerge &> /dev/null; then
+        echo "Using emerge to install UFW..."
+        sudo emerge --ask n net-firewall/ufw
     else
         echo "No supported package manager found. Please install UFW manually."
         exit 1

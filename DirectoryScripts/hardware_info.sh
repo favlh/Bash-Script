@@ -1,35 +1,39 @@
 #!/bin/bash
 
-# Display CPU info
-echo "CPU Info:"
-lscpu
-echo ""
+# =============================
+# System Hardware Information
+# =============================
 
-# Display memory info
-echo "Memory Info:"
-free -h
-echo ""
+print_header() {
+    echo -e "\n====== $1 ======"
+}
 
-# Display disk info
-echo "Disk Info:"
-lsblk
-echo ""
+# Display CPU information
+print_header "CPU INFO"
+lscpu | grep -E "^(Model name|Architecture|CPU\(s\)|Thread|Core|Socket)"
+
+# Display memory information
+print_header "MEMORY INFO"
+free -h | awk 'NR==1{print}\
+              NR==2{printf "%-15s%10s%10s%10s\n", $1, $2, $3, $4}'
+
+# Display disk information
+print_header "DISK INFO"
+lsblk --output NAME,SIZE,TYPE,MOUNTPOINT
 
 # Display network interfaces
-echo "Network Interfaces:"
-ip a
-echo ""
+print_header "NETWORK INTERFACES"
+ip -br addr show
 
 # Display USB devices
-echo "USB Devices:"
-lsusb
-echo ""
+print_header "USB DEVICES"
+lsusb | sort
 
 # Display PCI devices
-echo "PCI Devices:"
-lspci
-echo ""
+print_header "PCI DEVICES"
+lspci | grep -E "VGA|Network|Audio|USB"
 
 # Display all hardware info (optional)
-# Uncomment the line below if you want all details
-# sudo lshw
+print_header "FULL HARDWARE INFO"
+# Uncomment line below for complete details
+# sudo lshw -short

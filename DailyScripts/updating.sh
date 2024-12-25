@@ -1,41 +1,53 @@
 #!/bin/bash
-# Update and Upgrade Script for Major Linux Distros
-# This script detects the Linux distribution and runs the appropriate commands.
+# Auto System Update Script
+# Author: System Administrator
+# Version: 1.0
+
+# Banner function
+print_banner() {
+    clear
+    echo -e "\e[1;36m"
+    echo "┌─────────────────────────────────────────┐"
+    echo "│     🚀 AUTOMATIC SYSTEM UPDATER 🚀      │"
+    echo "│        Keep Your System Updated         │"
+    echo "└─────────────────────────────────────────┘"
+    echo -e "\e[0m"
+}
 
 update_system() {
-    echo "Detecting Linux distribution..."
+    echo -e "\e[1;33m🔍 Detecting Linux distribution...\e[0m"
     if [ -f /etc/debian_version ]; then
-        # Debian-based distros (e.g., Ubuntu, Pop!_OS)
-        echo "Detected Debian-based Linux."
-        sudo apt update && sudo apt upgrade -y
-        sudo apt clean
+        echo -e "\e[1;32m✅ Detected Debian/Ubuntu based Linux.\e[0m"
+        echo -e "\e[1;34m📦 Updating packages...\e[0m"
+        sudo apt-get update && sudo apt-get upgrade -y
+        sudo apt-get clean
     elif [ -f /etc/redhat-release ]; then
-        # Red Hat-based distros (e.g., CentOS, Fedora, Rocky Linux)
-        echo "Detected Red Hat-based Linux."
+        echo -e "\e[1;32m✅ Detected Red Hat-based Linux.\e[0m"
+        echo -e "\e[1;34m📦 Updating packages...\e[0m"
         sudo dnf upgrade --refresh -y
         sudo dnf clean all
     elif [ -f /etc/arch-release ]; then
-        # Arch-based distros (e.g., Manjaro, EndeavourOS)
-        echo "Detected Arch-based Linux."
+        echo -e "\e[1;32m✅ Detected Arch-based Linux.\e[0m"
+        echo -e "\e[1;34m📦 Updating packages...\e[0m"
         sudo pacman -Syu --noconfirm
         sudo pacman -Sc --noconfirm
     elif [ -f /etc/SuSE-release ]; then
-        # openSUSE-based distros
-        echo "Detected openSUSE-based Linux."
+        echo -e "\e[1;32m✅ Detected openSUSE-based Linux.\e[0m"
+        echo -e "\e[1;34m📦 Updating packages...\e[0m"
         sudo zypper refresh
         sudo zypper update -y
     elif [ -f /etc/gentoo-release ]; then
-        # Gentoo Linux
-        echo "Detected Gentoo Linux."
+        echo -e "\e[1;32m✅ Detected Gentoo Linux.\e[0m"
+        echo -e "\e[1;34m📦 Updating packages...\e[0m"
         sudo emerge --sync
         sudo emerge -uDNav @world
     else
-        echo "Unsupported distribution. Please update manually."
+        echo -e "\e[1;31m❌ Unsupported distribution. Please update manually.\e[0m"
         exit 1
     fi
 }
 
-# Messages after execution
-echo "Starting system update and upgrade process..."
+print_banner
+echo -e "\e[1;35m🎬 Starting system update and upgrade process...\e[0m"
 update_system
-echo "System update and upgrade completed successfully!"
+echo -e "\e[1;32m✨ System update and upgrade completed successfully!\e[0m"

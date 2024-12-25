@@ -1,5 +1,9 @@
 #!/bin/sh
 name=$USER
 
-echo "Hello $name"
-date 
+echo "===== Welcome ====="
+echo "Hello $name!"
+echo "Date: $(date)"
+echo "Time: $(date +%T)"
+echo "Status: $(uptime)"
+echo "================="
